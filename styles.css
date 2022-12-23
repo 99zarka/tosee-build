@@ -1,0 +1,39 @@
+
+.mycard {
+    background: transparent linear-gradient(180deg, #C4EEF2 0%, #EAF9FB 100%) 0% 0% no-repeat padding-box;
+    box-shadow: 8px 8px 0px #0000001A;
+    opacity: 1;
+}
+
+.btn-primary{
+    background-color: #16558C;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.4rem 0px;
+    border-radius: 1rem;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+/*.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}*/
