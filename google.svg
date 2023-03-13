@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 77">
+  <g id="Circle_Button_SIZE_MEDIUM_STATE_DEFAULT_STYLE_STYLE2_" data-name="Circle Button [SIZE=MEDIUM][STATE=DEFAULT][STYLE=STYLE2]" transform="translate(-0.044 -0.46)">
+    <g id="Group_356" data-name="Group 356">
+      <g id="Area_SIZE:MEDIUM_STATE:DEFAULT_STYLE:STYLE2_" data-name="Area [SIZE:MEDIUM][STATE:DEFAULT][STYLE:STYLE2]" transform="translate(0.044 0.46)" fill="#fff" stroke="#3e3e3e" stroke-width="2">
+        <rect width="77" height="77" rx="38.5" stroke="none"/>
+        <rect x="1" y="1" width="75" height="75" rx="37.5" fill="none"/>
+      </g>
+      <g id="Icon_ICON_custom_google_SIZE_MEDIUM_STATE_DEFAULT_STYLE_STYLE2_" data-name="Icon [ICON=custom/google][SIZE=MEDIUM][STATE=DEFAULT][STYLE=STYLE2]" transform="translate(22.577 22.576)">
+        <g id="Area_ICON:custom_google_SIZE:MEDIUM_STATE:DEFAULT_STYLE:STYLE2_" data-name="Area [ICON:custom/google][SIZE:MEDIUM][STATE:DEFAULT][STYLE:STYLE2]" transform="translate(0.467 -0.116)" fill="rgba(253,73,198,0.35)" stroke="#fd49c6" stroke-width="1" opacity="0">
+          <rect width="32" height="32" stroke="none"/>
+          <rect x="0.5" y="0.5" width="31" height="31" fill="none"/>
+        </g>
+        <g id="Icon" transform="translate(0.015 0)">
+          <path id="_08752e04-67b9-4c72-b269-238ce9368927" data-name="08752e04-67b9-4c72-b269-238ce9368927" d="M35.26,16.289h-1.3v-.068H19.447v6.45h9.114a9.683,9.683,0,1,1-2.695-10.451l4.56-4.56a16.066,16.066,0,1,0,4.833,8.629Z" transform="translate(-3.352 -3.323)" fill="none" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"/>
+          <path id="_25927764-aecb-42ea-baaf-0eda19f7590b" data-name="25927764-aecb-42ea-baaf-0eda19f7590b" d="M5.255,11.982l5.317,3.9a9.69,9.69,0,0,1,15.442-3.617l4.578-4.575a16.153,16.153,0,0,0-25.337,4.3Z" transform="translate(-3.42 -3.334)" fill="none" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"/>
+          <path id="_2141fa51-288b-45bc-8e02-73eca3ca1d53" data-name="2141fa51-288b-45bc-8e02-73eca3ca1d53" d="M19.568,36.28a16.106,16.106,0,0,0,10.851-4.2l-5.01-4.236a9.686,9.686,0,0,1-14.97-4.464L5.167,27.445A16.168,16.168,0,0,0,19.568,36.28Z" transform="translate(-3.414 -4.03)" fill="none" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"/>
+          <path id="_287b8883-3496-4db5-b4ee-d4a55584d683" data-name="287b8883-3496-4db5-b4ee-d4a55584d683" d="M35.868,16.733h-1.3v-.066H20V23.14h9.147a9.75,9.75,0,0,1-3.307,4.507h0l5.009,4.238A15.659,15.659,0,0,0,36.181,19.9,16.233,16.233,0,0,0,35.868,16.733Z" transform="translate(-3.961 -3.836)" fill="none" stroke="#3e3e3e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.667"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

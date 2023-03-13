@@ -5,35 +5,120 @@
     opacity: 1;
 }
 
+.second-color {
+    background: #699EBF;
+}
+
+.notification-list{
+    background: #c1c1c1a2;
+    border-radius: 34px;
+    backdrop-filter: blur(34px);
+    -webkit-backdrop-filter: blur(34px);
+}
+
+.offcanvas-body{
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+@media screen and (min-width: 576px) {
+    .side-bar, .info-bar {
+        height:100vh;
+        min-width: 80px;
+        overflow: auto;
+
+
+    }
+
+    .notification-list{
+        margin-left: 80px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+  }
+  
+@media screen and (max-width: 576px) {
+    .side-bar {
+        height: 55px;
+    }
+
+    .notification-list{
+        margin-top: 55px;
+    }
+
+
+  }
+  
+.offcanvas-backdrop{
+    background-color: transparent;
+}
+.dark{
+    background-color: rgb(4, 32, 88);
+}
+
+.less-dark{
+    background-color: #16558C;
+}
+
+.border-dark-custom{
+    border-style: solid;
+    border-color: rgb(4, 32, 88);
+    border-width: medium;
+    border-top: hidden;
+    border-right: hidden;
+}
+
+.border-dark-custom-2{
+    border-style: solid;
+    border-color: rgb(4, 32, 88);
+    border-width: medium;
+    border-radius: 20px;
+}
+
 .btn-primary{
     background-color: #16558C;
 }
 
-.btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
-    border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
+textarea{
+    resize:none;
+    overflow-y: auto;
 }
 
-.btn-circle {
-    width: 2rem;
-    height: 2rem;
-    padding: 0.4rem 0px;
-    border-radius: 1rem;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
+
+.search_input {
+    border-color: rgb(4, 32, 88);
+    width: 0px;
+    transition: width 0.4s linear;
+}
+.searchbar:hover > .search_input, .search_input:focus, .search_input:valid  {
+    width: 60%;
 }
 
-/*.btn-circle {
-    width: 30px;
-    height: 30px;
-    padding: 6px 0px;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
-}*/
+
+.search_icon {
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+}
