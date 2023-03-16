@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tosee-build/static/css/main.073c9b0a.css",
-    "main.js": "/tosee-build/static/js/main.43a2edd8.js",
+    "main.js": "/tosee-build/static/js/main.208f0fc7.js",
     "static/js/787.328c458c.chunk.js": "/tosee-build/static/js/787.328c458c.chunk.js",
     "index.html": "/tosee-build/index.html",
     "main.073c9b0a.css.map": "/tosee-build/static/css/main.073c9b0a.css.map",
-    "main.43a2edd8.js.map": "/tosee-build/static/js/main.43a2edd8.js.map",
+    "main.208f0fc7.js.map": "/tosee-build/static/js/main.208f0fc7.js.map",
     "787.328c458c.chunk.js.map": "/tosee-build/static/js/787.328c458c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.43a2edd8.js"
+    "static/js/main.208f0fc7.js"
   ]
 }
