@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <script src="loadData.js"></script>
+    <script src="navbar.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .product-detail-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product-image-section {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .thumbnail {
+            width: 80px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        .thumbnail:hover, .thumbnail.active {
+            border-color: #007bff;
+        }
+        .product-info-section {
+            flex: 2;
+            min-width: 400px;
+        }
+        .product-info-section h1 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .product-info-section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .product-info-section strong {
+            color: #555;
+        }
+        .stars-outer {
+            position: relative;
+            display: inline-block;
+        }
+        .stars-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0%;
+        }
+        .stars-outer::before,
+        .stars-inner::before {
+            content: '★★★★★';
+            display: block;
+            font-size: 1.2em;
+            color: #ccc;
+        }
+        .stars-inner::before {
+            color: #f8ce0b;
+        }
+        .add-to-cart-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #218838;
+        }
+        .detailed-rating-section {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .detailed-rating-section h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .rating-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .rating-label {
+            width: 80px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .rating-bar-container {
+            flex-grow: 1;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+        .rating-bar {
+            height: 100%;
+            background-color: #f8ce0b;
+            border-radius: 5px;
+            width: 0%; /* Will be set by JS */
+        }
+        .rating-count {
+            font-size: 0.9em;
+            color: #555;
+            min-width: 30px;
+            text-align: right;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div id="product-detail-container" class="product-detail-container">
+        <div class="product-image-section">
+            <div id="thumbnail-container" class="thumbnail-container">
+                <!-- Thumbnails will be loaded here by JavaScript -->
+            </div>
+            <img id="main-product-image" src="" alt="Book Cover" class="main-image">
+        </div>
+        <div class="product-info-section">
+            <h1 id="book-title"></h1>
+            <p><strong>Author:</strong> <span id="book-author"></span></p>
+            <p><strong>Published:</strong> <span id="book-published-date"></span></p>
+            <p><strong>Category:</strong> <span id="book-category"></span></p>
+            <p><strong>Language:</strong> <span id="book-language"></span></p>
+            <p><strong>Pages:</strong> <span id="book-page-count"></span></p>
+            <p class="rating">
+                <strong>Aggregate Rating:</strong> 
+                <div class="stars-outer">
+                    <div id="book-rating-stars" class="stars-inner"></div>
+                </div>
+                <span id="book-rating"></span> / 5
+            </p>
+            <p><strong>Price:</strong> <span id="book-price"></span> L.E.</p>
+            <p><strong>Description:</strong> <span id="book-description"></span></p>
+
+            <div class="aggregate-rating-section">
+                <h3>Aggregate Rating:</h3>
+                <p class="rating">
+                    <div class="stars-outer">
+                        <div id="book-rating-stars-top" class="stars-inner"></div>
+                    </div>
+                    <span id="book-rating-top"></span> / 5
+                </p>
+            </div>
+
+            <div class="detailed-rating-section">
+                <h3>Detailed Ratings:</h3>
+                <div class="rating-breakdown">
+                    <div class="rating-row">
+                        <span class="rating-label">5 Stars</span>
+                        <div class="rating-bar-container">
+                            <div id="5-star-bar" class="rating-bar"></div>
+                        </div>
+                        <span id="5-star-count" class="rating-count"></span>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label">4 Stars</span>
+                        <div class="rating-bar-container">
+                            <div id="4-star-bar" class="rating-bar"></div>
+                        </div>
+                        <span id="4-star-count" class="rating-count"></span>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label">3 Stars</span>
+                        <div class="rating-bar-container">
+                            <div id="3-star-bar" class="rating-bar"></div>
+                        </div>
+                        <span id="3-star-count" class="rating-count"></span>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label">2 Stars</span>
+                        <div class="rating-bar-container">
+                            <div id="2-star-bar" class="rating-bar"></div>
+                        </div>
+                        <span id="2-star-count" class="rating-count"></span>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label">1 Star</span>
+                        <div class="rating-bar-container">
+                            <div id="1-star-bar" class="rating-bar"></div>
+                        </div>
+                        <span id="1-star-count" class="rating-count"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quantity-control">
+                <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                <input 
+                    type="number"
+                    class="quantity-input"
+                    value="1"
+                    min="1"
+                    max="99"
+                    onchange="enableDisableButton()"
+                >
+                <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+            </div>
+            <button id="add-to-cart-btn" class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+    </div>
+
+    <script>
+var fullData = JSON.parse(localStorage.getItem('fullData'));
+const urlParams = new URLSearchParams(window.location.search);
+const productIsbn = urlParams.get('isbn');
+
+if (productIsbn) {
+    const product = fullData[productIsbn];
+    if (product) {
+        document.getElementById('book-title').textContent = product.title;
+        document.getElementById('book-author').textContent = product.author;
+        document.getElementById('book-published-date').textContent = product.publishedDate;
+        document.getElementById('book-category').textContent = product.categories;
+        document.getElementById('book-language').textContent = product.language;
+        document.getElementById('book-page-count').textContent = product.pageCount;
+        document.getElementById('book-rating').textContent = product.aggregate_rating;
+        document.getElementById('book-price').textContent = product.price;
+        document.getElementById('book-description').textContent = product.description;
+
+        // Set the width of the stars based on the aggregate rating for the first section
+        const rating = parseFloat(product.aggregate_rating);
+        const starPercentage = (rating / 5) * 100;
+        document.getElementById('book-rating-stars').style.width = starPercentage + '%';
+
+        // Set the width of the stars based on the aggregate rating for the new top section
+        document.getElementById('book-rating-top').textContent = product.aggregate_rating;
+        document.getElementById('book-rating-stars-top').style.width = starPercentage + '%';
+
+        // Populate detailed ratings
+        if (product.detailed_rating) {
+            const detailedRating = product.detailed_rating;
+            const totalRatings = Object.values(detailedRating).reduce((sum, count) => sum + count, 0);
+
+            for (let i = 5; i >= 1; i--) {
+                const starCount = detailedRating[`${i}_stars`] || detailedRating[`${i}_star`] || 0;
+                const percentage = totalRatings > 0 ? (starCount / totalRatings) * 100 : 0;
+
+                const barElement = document.getElementById(`${i}-star-bar`);
+                const countElement = document.getElementById(`${i}-star-count`);
+
+                if (barElement) {
+                    barElement.style.width = percentage + '%';
+                }
+                if (countElement) {
+                    countElement.textContent = `(${starCount})`;
+                }
+            }
+        }
+
+        // Set main image
+        var mainImage = document.getElementById('main-product-image');
+        mainImage.src = `products/${productIsbn}/${productIsbn}-cover.jpg`;
+        mainImage.alt = product.title + " Cover";
+
+        // Populate thumbnails
+        var thumbnailContainer = document.getElementById('thumbnail-container');
+        thumbnailContainer.innerHTML = ''; // Clear existing thumbnails
+
+        let thumbnailsHtml = `
+            <img src="products/${productIsbn}/${productIsbn}-cover.jpg" alt="Thumbnail 1" class="thumbnail active" onclick="setMainImage('products/${productIsbn}/${productIsbn}-cover.jpg')">
+            <img src="products/${productIsbn}/1.jpg" alt="Thumbnail 2" class="thumbnail" onclick="setMainImage('products/${productIsbn}/1.jpg')">
+            <img src="products/${productIsbn}/2.jpg" alt="Thumbnail 3" class="thumbnail" onclick="setMainImage('products/${productIsbn}/2.jpg')">
+            <img src="products/${productIsbn}/3.jpg" alt="Thumbnail 4" class="thumbnail" onclick="setMainImage('products/${productIsbn}/3.jpg')">
+        `;
+
+        thumbnailContainer.innerHTML = thumbnailsHtml;
+        }
+        else {
+            console.error('Product not found for ISBN:', productIsbn);
+            document.getElementById('product-detail-container').innerHTML = '<p>Product details not found.</p>';
+        }
+    } 
+    else {
+    console.error('Product ISBN not found in URL or fullData not loaded.');
+    document.getElementById('product-detail-container').innerHTML = '<p>No product selected or data not loaded.</p>';
+    }
+
+
+function setMainImage(imagePath) {
+    document.getElementById('main-product-image').src = imagePath;
+    var thumbnails = document.querySelectorAll('.thumbnail');
+    for (let i = 0; i < thumbnails.length; i++) {
+        thumbnails[i].classList.remove('active');
+    }
+    event.target.classList.add('active');
+}
+
+function enableDisableButton(isbn = productIsbn){
+    var btn = document.getElementById(`add-to-cart-btn`);
+    var myinput = document.querySelector('.quantity-input');
+    var cart = JSON.parse(localStorage.getItem('cart')) || {};
+    if(myinput.value == cart[isbn]){
+        btn.disabled = true;
+        btn.style.backgroundColor = "grey";
+        btn.innerText = "Added to cart";
+    }
+    else if(cart[isbn]){
+        btn.disabled = false;
+        btn.style.backgroundColor = "orange";
+        btn.innerText = "change quantity";
+
+    }
+    else{
+        btn.disabled = false;
+        btn.style.backgroundColor = "green";
+        btn.innerText = "Add to cart";
+    }
+}
+
+function changeQuantity(delta) {
+    const input = event.target.parentNode.querySelector('.quantity-input');
+    let value = parseInt(input.value);
+    value += delta;
+    if (value < 1) value = 1;
+    input.value = value;
+    enableDisableButton();
+}
+
+function addToCart(isbn = productIsbn) {
+    var quantityInput = document.querySelector(`.quantity-input`);
+    var quantity = parseInt(quantityInput.value);
+
+    var cart = JSON.parse(localStorage.getItem('cart')) || {};
+    cart[isbn] = quantity;
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.countCart()
+    enableDisableButton(isbn);
+    // alert(`Added ${quantity} copies of ${fullData[isbn].title} to cart!`);
+}
+
+var myinput = document.querySelector('.quantity-input');
+myinput.value = cart[productIsbn] || 1;
+enableDisableButton();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check out</title>
+    <script src="loadData.js"></script>
+    <script src="navbar.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .checkout-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #007bff;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .cart-items {
+            margin-bottom: 30px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item img {
+            width: 80px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 4px;
+        }
+        .item-details {
+            flex-grow: 1;
+        }
+        .item-price {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .quantity-control input {
+            width: 50px;
+            text-align: center;
+            margin: 0 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .quantity-control button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .remove-item {
+            color: #dc3545;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        .checkout-summary {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .checkout-form {
+            margin-top: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .checkout-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .checkout-btn:hover {
+            background-color: #218838;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+        .clear-cart-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h1>Checkout</h1>
+        
+        <div id="cart-items-section" class="cart-items">
+            <h2>Your Cart</h2>
+            <div id="cart-items-container">
+                <!-- Cart items will be loaded here by JavaScript -->
+            </div>
+            <button  onclick="handleClearCart()" class="clear-cart-btn">Clear Cart</button>
+        </div>
+        
+        <div id="checkout-summary" class="checkout-summary">
+            <h2>Order Summary</h2>
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">0 L.E.</span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping:</span>
+                <span id="shipping">50 L.E.</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span id="total">50 L.E.</span>
+            </div>
+        </div>
+        
+        <form class="checkout-form" action="index.html" onsubmit="localStorage.removeItem('cart');">
+            <h2>Payment Information</h2>
+            <div class="form-group">
+                <label for="address">Shipping Address</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="payment">Payment Method</label>
+                <select id="payment" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="cash">Cash on Delivery</option>
+                    <option value="credit">Credit Card</option>
+                </select>
+            </div>
+            <input id="complete-order-btn" class="checkout-btn" value="Complete Order" type="submit"/>
+        </form>
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (!loggedInUser) {
+                alert('You must be logged in to access the checkout page.');
+                window.location.href = 'login.html'; // Redirect to login page
+            }
+        });
+
+        // Load data from localStorage
+        var fullData = JSON.parse(localStorage.getItem('fullData'));
+        var cart = JSON.parse(localStorage.getItem('cart')) || {};
+        
+        // Display cart items
+        function displayCartItems(cart = {}) {
+            var cartItemsContainer = document.getElementById('cart-items-container');
+            var subtotal = 0;
+
+            cartItemsContainer.innerHTML = '';
+            
+            if (Object.keys(cart).length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                cartItemsContainer.innerHTML += '<a href="products.html" class="back-button">Continue Shopping</a>';
+                document.getElementById('checkout-summary').style.display = 'none';
+                document.querySelector('.checkout-form').style.display = 'none';
+                document.querySelector('.clear-cart-btn').style.display = 'none';
+                return;
+            }
+
+            
+            
+            for (const isbn in cart) {
+                const book = fullData[isbn];
+                const quantity = cart[isbn];
+                const itemTotal = book.price * quantity;
+                subtotal += itemTotal;
+
+                
+
+                cartItemsContainer.innerHTML += `
+                <div class="cart-item">
+                    <a href="product.html?isbn=${isbn}"><img src="products/${isbn}/${isbn}-cover.jpg" alt="${book.title}"></a>
+                    <div class="item-details">
+                        <h3>${book.title}</h3>
+                        <p>${book.author}</p>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="changeQuantity(${isbn},-1)">-</button>
+                            <input type="number" class="quantity-input" value="${quantity}" min="1" max="99" data-isbn="${isbn}" onchange="changeQuantity(${isbn},0)">
+                            <button class="quantity-btn" onclick="changeQuantity(${isbn},1)">+</button>
+                        </div>
+                    </div>
+                    <div class="item-price">${itemTotal} L.E.</div>
+                    <div class="remove-item" onclick="removeItem('${isbn}')">Remove</div>
+                </div>
+                `;
+            }
+            
+            // Update summary
+            document.getElementById('subtotal').textContent = subtotal + ' L.E.';
+            const total = subtotal + 50; // Adding shipping
+            document.getElementById('total').textContent = total + ' L.E.';
+        }
+
+        
+        function changeQuantity(isbn,delta) {
+            var input = event.target.parentNode.querySelector('.quantity-input');
+            var cart = JSON.parse(localStorage.getItem('cart')) || {};
+            let value = parseInt(input.value);
+            value += delta;
+            if (value < 1) value = 1;
+            input.value = value;
+            cart[isbn] = value;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            window.countCart()
+            displayCartItems(cart);
+
+        }
+
+        // Remove item
+        function removeItem(isbn) {
+            event.preventDefault();
+            delete cart[isbn];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            window.countCart()
+            displayCartItems(cart);
+        }
+
+        function handleClearCart() {
+            console.log('Clear cart button clicked');
+            localStorage.removeItem('cart');
+            cart = {};
+            displayCartItems();
+        }
+        
+        displayCartItems(cart);
+    </script>
+    
+</body>
+</html>

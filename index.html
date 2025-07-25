@@ -1,1 +1,344 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/tosee-build/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/tosee-build/logo192.png"/><link rel="manifest" href="/tosee-build/manifest.json"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><link href="styles.css" rel="stylesheet"><script defer="defer" src="/tosee-build/static/js/main.2e917174.js"></script><link href="/tosee-build/static/css/main.073c9b0a.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Papurus House</title>
+    <script src="loadData.js"></script>
+    <!-- <script src="navbar.js"></script> -->
+     <script src="footer.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container">
+        <div class="logo">
+          <img src="./images/logo.png" alt="Papurus House" />
+        </div>
+
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="products.html">Products</a>
+          <a href="#myfooter">Contact</a>
+          <a href="#myfooter">About Us</a>
+        </nav>
+
+        <div class="nav-actions">
+          <input type="text" class="search-input" placeholder="Search..." />
+          <button class="icon-btn"><i class="fas fa-user"></i></button>
+          <button class="icon-btn"><i class="fas fa-shopping-cart"></i></button>
+          <button class="icon-btn dark-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="slider-section">
+
+
+      <!-- Slide 1 -->
+      <div class="slider-slide active">
+        <div class="slide-content">
+          <h2>The Song of Achilles</h2>
+          <p>
+            The Song of Achilles is a modern retelling of the ancient Greek
+            myth, focusing on the relationship between Achilles and Patroclus.
+            This beautifully written novel explores themes of love, honor, and
+            the human condition.
+          </p>
+          <a href="product.html?isbn=9780062060631" class="btn">
+            Buy now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="slide-image">
+          <img
+            src="./products/9780062060631/9780062060631-cover.jpg"
+            alt="The Song of Achilles"
+          />
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slider-slide">
+        <div class="slide-content">
+          <h2>The Power of Habit</h2>
+          <p>
+            The Power of Habit contains an exhilarating argument: The key to exercising regularly,
+            losing weight, being more productive, and achieving success is understanding how habits work.
+          </p>
+          <a href="product.html?isbn=9780812981605" class="btn">
+            Buy now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="slide-image">
+          <img src="./products/9780812981605/9780812981605-cover.jpg" alt="The Power of Habit" />
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slider-slide">
+        <div class="slide-content">
+          <h2>The three musketeers</h2>
+          <p>
+            A timeless tale of youth, daring, and friendship, and full of intrigue, swordplay, and
+            revenge, The Three Musketeers follows the escapades of D'Artagnan and his
+            musketeer comrades Porthos, Athos, and Aramis as they fight to foil
+            the devious schemes of Cardinal Richelieu.
+          </p>
+          <a href="product.html?isbn=9781578151264" class="btn">
+            Buy now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="slide-image">
+          <img src="./products/9781578151264/9781578151264-cover.jpg" alt="The three musketeers" />
+        </div>
+      </div>
+
+      <!-- Dots -->
+      <div class="slider-dots">
+          <button class="slider-arrow slider-arrow-left">
+              <i class="fas fa-chevron-left"></i>
+          </button>
+        <span class="dot active" data-slide="0"></span>
+        <span class="dot" data-slide="1"></span>
+        <span class="dot" data-slide="2"></span>
+        <button class="slider-arrow slider-arrow-right">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- categories -->
+    <section class="categories">
+      <div class="categories-head">
+        <h2>Featured Categories</h2>
+        <a href="products.html" class="btn">
+        View All
+        <i
+            style="margin-left: 5px; font-size: larger"
+            class="fas fa-arrow-right"
+        ></i>
+        </a>
+      </div>
+
+      <div class="categories-boxes">
+        <div class="cat-card">
+          <img src="./ico_cat/torah.png" width="40%" alt="" />
+          <p>Self-help</p>
+        </div>
+        <div class="cat-card">
+          <img src="./ico_cat/spell-book.png" width="40%" alt="" />
+          <p>Fiction</p>
+        </div>
+        <div class="cat-card">
+          <img src="./ico_cat/pharaoh.png" width="40%" alt="" />
+          <p>Politics</p>
+        </div>
+        <div class="cat-card">
+          <img src="./ico_cat/labtop.png" width="40%" alt="" />
+          <p>Software</p>
+        </div>
+        <div class="cat-card">
+          <img src="./ico_cat/ankh.png" width="40%" alt="" />
+          <p>History</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- top sale -->
+    <section class="top-sales">
+      <h2 class="section-title">Top Sales This Week</h2>
+
+      <div class="book-list">
+        <div class="book-card">
+          <div class="book-image">
+            <img
+              src="./products/9780143127741/9780143127741-cover.jpg"
+              alt="Clean Code"
+            />
+          </div>
+          <div class="book-info">
+            <h3>The Body Keeps the Score
+
+</h3>
+            <p class="price">330 L.E.</p>
+            <p class="desc">
+               Originally published by Viking Penguin, 2014. 
+               
+            </p>
+            <a href="product.html?isbn=9780143127741" class="btn" style="margin-top: auto; width:50%;">
+                Order now
+            </a>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-image">
+            <img
+              src="./products/9780060976255/9780060976255-cover.jpg"
+              alt="Understanding Comics"
+            />
+          </div>
+          <div class="book-info">
+            <h3>Understanding Comics</h3>
+            <p class="price">180 L.E.</p>
+            <p class="desc">
+              Praised throughout the cartoon industry by such luminaries as
+              Art Spiegelman, Matt Groening, and Will Eisner.
+            </p>
+            <a href="product.html?isbn=9780060976255" class="btn" style="margin-top: auto; width:50%;">
+                Order now
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ***********promo-card************* -->
+
+    <section class="promo-card">
+      <div class="promo-overlay">
+        <div class="promo-content">
+          <p class="ancient-quote">
+            "He who unravels the words of the ancients shall awaken eternal
+            knowledge"
+          </p>
+          <p class="promo-message">
+            Discover the secrets of the Pharaohs <br />
+            and get <strong>20% off</strong> all new books.
+          </p>
+          <a href="products.html" class="btn promo-btn">Shop Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ***************** -->
+    <section class="featured-products">
+      <h2 class="section-title">Featured Products</h2>
+
+      <div class="featured-grid">
+        <a href="product.html?isbn=9781473233959" class="featured-card">
+          <img src="./products/9781473233959/9781473233959-cover.jpg" alt="Dune" />
+          <h3>Dune</h3>
+          <p class="price">140 L.E.</p>
+        </a>
+
+        <a href="product.html?isbn=9781586638450" class="featured-card">
+          <img src="./products/9781586638450/9781586638450-cover.jpg" alt="Romeo and Juliet" />
+          <h3>Romeo and Juliet</h3>
+          <p class="price">220 L.E.</p>
+        </a>
+
+        <a href="product.html?isbn=9781594634024" class="featured-card">
+          <img src="./products/9781594634024/9781594634024-cover.jpg" alt="The Girl on the Train" />
+          <h3>The Girl on the Train</h3>
+          <p class="price">280 L.E.</p>
+        </a>
+
+        <a href="product.html?isbn=9781250179937" class="featured-card">
+          <img src="./products/9781250179937/9781250179937-cover.jpg" alt="Surrounded by Idiots" />
+          <h3>Surrounded by Idiots</h3>
+          <p class="price">250 L.E.</p>
+        </a>
+
+        <a href="product.html?isbn=9781503017825" class="featured-card">
+          <img src="./products/9781503017825/9781503017825-cover.jpg" alt="The Prince" />
+          <h3>The Prince</h3>
+          <p class="price">120 L.E.</p>
+        </a>
+
+        <a href="product.html?isbn=9780486832944" class="featured-card">
+          <img src="./products/9780486832944/9780486832944-cover.jpg" alt="The Art of War" />
+          <h3>The Art of War</h3>
+          <p class="price">120 L.E.</p>
+        </a>
+
+        <a href="product.html?isbn=9780486284736" class="featured-card">
+          <img src="./products/9780486284736/9780486284736-cover.jpg" alt="Pride and Prejudice" />
+          <h3>Pride and Prejudice</h3>
+          <p class="price">220 L.E.</p>
+        </a>
+
+        <a href="product.html?isbn=9780451524935" class="featured-card">
+          <img src="./products/9780451524935/9780451524935-cover.jpg" alt="Nineteen Eighty-four" />
+          <h3>Nineteen Eighty-four</h3>
+          <p class="price">240 L.E.</p>
+        </a>
+
+      <div class="featured-btn-container">
+        <a class="btn featured-btn" href="products.html"">
+          View More
+          <i
+            style="margin-left: 5px; font-size: larger"
+            class="fas fa-arrow-right"
+          ></i>
+        </a>
+      </div>
+    </section>
+
+  
+    <!-- *************script**************** -->
+
+    <script>
+      var slides = document.querySelectorAll(".slider-slide");
+      var dots = document.querySelectorAll(".dot");
+      var currentSlide = 0;
+
+      function showSlide(index) {
+        for (var i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+          dots[i].classList.remove("active");
+        }
+
+        slides[index].style.display = "flex";
+        dots[index].classList.add("active");
+
+        currentSlide = index;
+      }
+
+      function nextSlide() {
+        var next;
+        if (currentSlide + 1 >= slides.length) {
+          next = 0;
+        } else {
+          next = currentSlide + 1;
+        }
+
+        showSlide(next);
+      }
+
+      setInterval(nextSlide, 5000);
+
+      for (var i = 0; i < dots.length; i++) {
+        (function (index) {
+          dots[index].addEventListener("click", function () {
+            showSlide(index);
+          });
+        })(i);
+      }
+
+      // Add arrow click handlers
+      document.querySelector('.slider-arrow-left').addEventListener('click', function() {
+        var prev = currentSlide - 1 < 0 ? slides.length - 1 : currentSlide - 1;
+        showSlide(prev);
+      });
+
+      document.querySelector('.slider-arrow-right').addEventListener('click', function() {
+        nextSlide();
+      });
+
+      showSlide(currentSlide);
+    </script>
+  </body>
+</html>
+</html>

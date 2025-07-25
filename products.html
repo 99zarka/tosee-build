@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Products</title>
+    <script src="loadData.js"></script>
+    <script src="navbar.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Remove default body margin */
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-left: 20px; /* Adjust heading margin due to navbar */
+        }
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .book-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer; /* Indicate clickable */
+        }
+        .book-card button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .book-card button:hover {
+            background-color: #218838;
+        }
+        .book-card img {
+            min-height: 250px;
+            max-height: 250px;
+
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .book-card h3 {
+            margin: 10px 0 5px;
+            color: #333;
+        }
+        .book-card p {
+            margin: 0 0 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .book-card .rating {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .quantity-control input {
+            width: 50px;
+            text-align: center;
+            margin: 0 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .quantity-control .quantity-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 0; /* Override previous margin-top */
+        }
+        .quantity-control .quantity-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Our Books</h1>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search by title, year, or author...">
+        <button id="search-button">Search</button>
+    </div>
+    <div id="products-container" class="products-container">
+
+    </div>
+
+    <script>
+var cart = JSON.parse(localStorage.getItem('cart')) || {};
+var fullData = JSON.parse(localStorage.getItem('fullData'));
+var productsContainer = document.getElementById('products-container');
+var availableBooksISBN = JSON.parse(localStorage.getItem('availableBooksISBN'));
+var allBooksISBN = [...availableBooksISBN]; // Store original list for filtering
+
+function displayProducts(booksToDisplay) {
+    if(booksToDisplay.length === 0){
+        productsContainer.innerHTML = '<p>No books found.</p>';
+        return;
+    }
+
+    productsContainer.innerHTML = '';
+    for (let i = 0; i < booksToDisplay.length; i++) {
+        const isbn = booksToDisplay[i];
+        const book = fullData[isbn];
+        const coverPath = `products/${isbn}/${isbn}-cover.jpg`;
+        var cartCounter = cart[isbn] || 1;
+
+        productsContainer.innerHTML += `
+            <div class="book-card" onclick="navigateToProduct('${isbn}')">
+                <img src="${coverPath}" alt="${book.title} Cover">
+                <h3>${book.title}</h3>
+                <p><strong>Author:</strong> ${book.author}</p>
+                <p><strong>Published:</strong> ${book.publishedDate}</p>
+                <p class="rating"><strong>Rating:</strong> ${book.aggregate_rating} / 5</p>
+                <h3><strong>Price:</strong> ${book.price} L.E.</h3>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                    <input type="number" 
+                        class="quantity-input"
+                        id = "input-${isbn}"
+                        value="${cartCounter}"
+                        min="1"
+                        max="99"
+                        data-isbn="${isbn}"
+                        onchange="enableDisableButton(${isbn})"
+                    >
+                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                </div>
+                <button class="add-to-cart" id="btn-${isbn}" data-isbn="${isbn}" onclick="addToCart('${isbn}')">Add to Cart</button>
+            </div>
+        `;
+    }
+}
+
+
+function enableDisableButton(isbn){
+    var btn = document.getElementById(`btn-${isbn}`);
+    var myinput = document.getElementById(`input-${isbn}`);
+    var cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+    if(myinput.value == cart[isbn]){
+        btn.disabled = true;
+        btn.style.backgroundColor = "grey";
+        btn.innerText = "Added to cart";
+    }
+    else if(cart[isbn]){
+        btn.disabled = false;
+        btn.style.backgroundColor = "orange";
+        btn.innerText = "change quantity";
+
+    }
+    else{
+        btn.disabled = false;
+        btn.style.backgroundColor = "green";
+        btn.innerText = "Add to cart";
+    }
+}
+
+
+
+
+
+
+
+function filterBooks() {
+    var searchInput = document.getElementById('search-input');
+    var searchTerm = searchInput.value.toLowerCase();
+    if (searchTerm === '') {
+        displayProducts(allBooksISBN);
+        return;
+    }
+    var filteredBooks = [];
+    for (let i = 0; i < allBooksISBN.length; i++) {
+        var isbn = allBooksISBN[i];
+        console.log(i);
+        console.log(isbn);
+        console.log(fullData[isbn]);
+        console.log(fullData[isbn].title);
+        if (fullData[isbn].title.toLowerCase().includes(searchTerm)) {
+            filteredBooks.push(isbn);
+        }
+        if (fullData[isbn].publishedDate.includes(searchTerm)) {
+            filteredBooks.push(isbn);
+        }
+        if (fullData[isbn].author.toLowerCase().includes(searchTerm)) {
+            filteredBooks.push(isbn);
+        }
+        
+    }
+    displayProducts(filteredBooks);
+}
+
+document.getElementById('search-button').addEventListener('click', filterBooks);
+document.getElementById('search-input').addEventListener('keyup', filterBooks);
+
+function changeQuantity(delta) {
+    var input = event.target.parentNode.querySelector('.quantity-input');
+    let value = parseInt(input.value);
+    value += delta;
+    if (value < 1) value = 1;
+    input.value = value;
+    enableDisableButton(input.dataset.isbn);
+}
+
+function addToCart(isbn) {
+    var quantityInput = document.querySelector(`.quantity-input[data-isbn="${isbn}"]`);
+    var quantity = parseInt(quantityInput.value);
+
+    var cart = JSON.parse(localStorage.getItem('cart')) || {};
+    cart[isbn] = quantity;
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.countCart()
+    enableDisableButton(isbn);
+    // alert(`Added ${quantity} copies of ${fullData[isbn].title} to cart!`);
+}
+
+displayProducts(allBooksISBN); // Display all books initially
+var allButtons = document.querySelectorAll('.add-to-cart');
+console.log(allButtons);
+for (var i = 0; i < allButtons.length; i++) {
+    enableDisableButton(allButtons[i].dataset.isbn);
+}
+
+function navigateToProduct(isbn) { 
+    if (!event.target.classList.contains('add-to-cart') && !event.target.classList.contains('quantity-btn') && !event.target.classList.contains('quantity-input')) {
+        window.location.href = `product.html?isbn=${isbn}`;
+    }
+}
+
+
+    </script>
+</body>
+</html>
